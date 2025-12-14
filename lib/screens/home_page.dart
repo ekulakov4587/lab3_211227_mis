@@ -51,8 +51,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        titleSpacing: 0, // remove default padding so button is full width
-        leadingWidth: 180, // make leading area wider
+        titleSpacing: 0, 
+        leadingWidth: 180,
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
