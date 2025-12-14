@@ -13,13 +13,11 @@ class MealGrid extends StatefulWidget {
 
 class _MealGridState extends State<MealGrid> {
   final FavoritesService _favorites = FavoritesService.instance;
-  // cache of favorite ids to quickly reflect UI
   Set<String> _favoriteIds = {};
 
   @override
   void initState() {
     super.initState();
-    // load favorites initially and listen for changes
     _favorites.favoritesStream.listen((ids) {
       setState(() {
         _favoriteIds = ids;
@@ -71,7 +69,6 @@ class _MealGridState extends State<MealGrid> {
                     ),
                   ],
                 ),
-                // Favorite button overlay (top-right)
                 Positioned(
                   top: 6,
                   right: 6,
@@ -83,7 +80,6 @@ class _MealGridState extends State<MealGrid> {
                       } else {
                         await _favorites.addFavorite(meal);
                       }
-                      // state will be updated by stream listener
                     },
                     child: Container(
                       padding: const EdgeInsets.all(6),
