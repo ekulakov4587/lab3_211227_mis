@@ -31,7 +31,6 @@ class FavoritesService {
           return;
         }
       } catch (e) {
-        // ignore and fallback to local storage
       }
     }
 
