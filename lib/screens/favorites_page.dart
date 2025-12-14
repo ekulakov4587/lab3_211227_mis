@@ -37,11 +37,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
     final results = <Meal>[];
     for (final id in ids) {
       try {
-        // ApiService.getMealDetail returns MealDetail; we map to Meal
         final detail = await _api.getMealDetail(id);
         results.add(Meal(id: detail.id, name: detail.name, thumb: detail.thumb));
       } catch (e) {
-        // ignore individual fetch errors
       }
     }
 
