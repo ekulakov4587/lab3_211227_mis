@@ -4,14 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/meal_model.dart';
 
-// NOTE: add the following packages to pubspec.yaml:
-// cloud_firestore: ^4.6.0
-// firebase_auth: ^4.4.0
-// shared_preferences: ^2.0.15
-//
-// Firestore rules and Firebase Auth setup need to be done in your Firebase console.
-// This service will try to use Firestore when a user is signed in; otherwise it falls back to local storage.
-
 class FavoritesService {
   FavoritesService._internal();
   static final FavoritesService instance = FavoritesService._internal();
@@ -43,7 +35,6 @@ class FavoritesService {
       }
     }
 
-    // Fallback to local storage
     final prefs = await SharedPreferences.getInstance();
     final saved = prefs.getStringList('favorites') ?? [];
     _favorites = saved.toSet();
@@ -75,12 +66,10 @@ class FavoritesService {
 
   Future<void> addFavorite(Meal meal) async {
     _favorites.add(meal.id);
-    // Save both locally and remotely (remote only if authenticated)
     await _saveLocal();
     try {
       await _saveRemote();
     } catch (e) {
-      // ignore remote save errors (network, auth, etc.)
     }
     _favoritesController.add(_favorites);
   }
@@ -97,13 +86,9 @@ class FavoritesService {
   }
 
   Future<List<Meal>> getFavoriteMeals() async {
-    // Returns detailed Meal objects by asking the API for each favorite id.
-    // This method requires the ApiService; to avoid circular import here, call ApiService from UI.
-    // Instead, this returns the list of ids to the caller; UI should fetch details.
     return [];
   }
 
-  // Dispose should be called on app close if desired
   void dispose() {
     _favoritesController.close();
   }
